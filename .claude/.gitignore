@@ -1,0 +1,7 @@
+# Paths are relative to .claude/. Keep shared settings.json and the local example tracked.
+/state/
+/settings.local.json
+/settings.local.*.json
+!/settings.local.example.json
+__pycache__/
+*.py[cod]

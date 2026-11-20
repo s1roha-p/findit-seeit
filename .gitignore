@@ -1,0 +1,46 @@
+# Secrets: never committed (CLAUDE.md rule 2)
+.env
+.env.*
+*.env
+secrets/
+
+# Python and environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Weights, caches and run outputs (docs/project/ENVIRONMENT.md)
+models/
+.cache/
+runs/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.safetensors
+*.gguf
+*.tflite
+
+# Data of people (docs/project/DATA_POLICY.md): only manifests are tracked
+data/raw/
+data/runtime/
+data/private/
+
+# Work area scratch and disposable outputs
+work/tmp/*
+!work/tmp/.gitkeep
+work/models/
+
+# Hook state and local settings (also in .claude/.gitignore)
+.claude/state/
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

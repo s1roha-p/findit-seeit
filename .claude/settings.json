@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(./)",
+      "Read(./**)",
+      "Edit(./src/**)",
+      "Edit(./tests/**)",
+      "Edit(./eval/**)",
+      "Edit(./scripts/**)",
+      "Edit(./work/**)",
+      "Edit(./change_log/**)",
+      "Edit(./docs/**)",
+      "Edit(./advisor/**)",
+      "Edit(./PROGRESS.md)",
+      "Edit(./README.md)",
+      "Bash(git status)",
+      "Bash(git status --porcelain)",
+      "Bash(git diff --stat)",
+      "Bash(git log --oneline -10)",
+      "Bash(git rev-parse --verify HEAD)",
+      "Bash(python --version)",
+      "Bash(conda activate findsee)",
+      "Bash(python .claude/hooks/selftest.py)"
+    ],
+    "ask": [
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(git pull)",
+      "Bash(git pull *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset --hard *)",
+      "Bash(git clean *)",
+      "Bash(git stash*)",
+      "Bash(git fetch --prune*)",
+      "Bash(git checkout main*)",
+      "Bash(git switch main*)",
+      "Bash(git branch -D *)",
+      "Bash(git commit *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.env)",
+      "Read(**/*.env.*)",
+      "Read(./secrets/**)",
+      "Read(**/secrets/**)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(**/*.env)",
+      "Edit(**/*.env.*)",
+      "Edit(./secrets/**)",
+      "Edit(./models/**)",
+      "Edit(./.cache/**)",
+      "Edit(./runs/**)",
+      "Bash(cat .env*)",
+      "Bash(cat *.env*)",
+      "Bash(cat */.env*)",
+      "Bash(type .env*)",
+      "Bash(type *.env*)",
+      "Bash(Get-Content .env*)",
+      "Bash(Get-Content *.env*)",
+      "Bash(less .env*)",
+      "Bash(more .env*)",
+      "Bash(head .env*)",
+      "Bash(tail .env*)",
+      "Bash(cat **/secrets/*)",
+      "Bash(echo $*_KEY*)",
+      "Bash(echo $*_SECRET*)",
+      "Bash(echo $*_TOKEN*)",
+      "Bash(echo $env:*KEY*)",
+      "Bash(echo $env:*SECRET*)",
+      "Bash(echo $env:*TOKEN*)",
+      "Bash(printenv *KEY*)",
+      "Bash(printenv *SECRET*)",
+      "Bash(printenv *TOKEN*)",
+      "Bash(env | grep *KEY*)",
+      "Bash(env | grep *SECRET*)",
+      "Bash(set | grep *KEY*)",
+      "Bash(Get-ChildItem Env:*)",
+      "Bash(rm -rf *)",
+      "Bash(rm -r *)",
+      "Bash(rmdir /s *)",
+      "Bash(Remove-Item * -Recurse*)",
+      "Bash(sudo *)",
+      "Bash(runas *)",
+      "Bash(chmod 777 *)",
+      "Bash(chmod -R 777 *)",
+      "Bash(curl * | bash*)",
+      "Bash(curl * | sh*)",
+      "Bash(wget * | bash*)",
+      "Bash(iwr * | iex*)",
+      "Bash(pip install *)",
+      "Bash(pip uninstall *)",
+      "Bash(python -m pip install *)",
+      "Bash(python -m pip uninstall *)",
+      "Bash(uv add *)",
+      "Bash(uv remove *)",
+      "Bash(uv sync*)",
+      "Bash(uv pip *)",
+      "Bash(conda install *)",
+      "Bash(conda update *)",
+      "Bash(conda remove *)",
+      "Bash(conda create *)",
+      "Bash(conda env *)",
+      "Bash(mamba install *)",
+      "Bash(nvidia-smi -r*)",
+      "Bash(nvidia-smi --gpu-reset*)",
+      "Bash(shutdown *)",
+      "Bash(reboot*)",
+      "Bash(Restart-Computer*)"
+    ],
+    "additionalDirectories": []
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py\" session-start || exit 2"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py\" pre-bash || exit 2"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py\" pre-read || exit 2"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py\" pre-write || exit 2"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py\" post-write || exit 2"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PROJECT_DIR}/.claude/hooks/guard.py\" stop || exit 2"
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  }
+}
