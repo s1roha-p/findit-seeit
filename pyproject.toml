@@ -1,0 +1,12 @@
+# pyproject.toml - pytest settings only.
+#
+# Packaging (a [project] table, build backend, dependencies) is NOT decided yet, so this file deliberately holds
+# only the pytest configuration table. Add packaging metadata here only after the team decides it.
+
+[tool.pytest.ini_options]
+# Put the src/ layout on sys.path so tests can `import findsee` without installing the package.
+pythonpath = ["src"]
+# Collect tests only from the tests/ folder (keeps pytest out of data/, models/, work/ and other large folders).
+testpaths = ["tests"]
+# Print a short summary of every non-passing outcome (skips, xfails, errors) at the end of the run.
+addopts = "-ra"

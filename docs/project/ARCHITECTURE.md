@@ -38,7 +38,7 @@ src/findsee/
     tts.py             # speak()
   mode2/               # Part C
     pipeline.py        # enhance()
-    presets.py         # Preset, PRESETS
+    presets.py         # PRESETS, get_preset() (the Preset dataclass is in types.py)
   app/                 # Part D
     main.py            # Gradio / Streamlit entry point
 eval/                  # Part D (harness) + each part's evaluation script
@@ -58,7 +58,7 @@ tests/                 # pytest; fixtures are small, consented, committed images
 | `Sighting` | `snapshot: Snapshot`, `detection: Detection` | what `last_seen` returns |
 | `Transcript` | `text: str`, `language: str` ("zh"), `audio_seconds: float`, `asr_seconds: float` | |
 | `Query` | `item: str \| None`, `raw_text: str` | `item` is None when no known item was named |
-| `Preset` | `name: str`, `zoom: float`, `denoise: str`, `clahe_clip: float`, `clahe_tile: int`, `sharpen_amount: float`, `display: str` ("binary_dark" \| "color_precomp" \| "plain"), `blue_gain: float` | stored in `src/findsee/mode2/presets.py` |
+| `Preset` | `name: str`, `zoom: float`, `denoise: str`, `clahe_clip: float`, `clahe_tile: int`, `sharpen_amount: float`, `display: str` ("binary_dark" \| "color_precomp" \| "plain"), `blue_gain: float` | class in `types.py` (validated, frozen); the named presets in `src/findsee/mode2/presets.py` |
 
 ## Function contracts
 
@@ -71,7 +71,7 @@ tests/                 # pytest; fixtures are small, consented, committed images
 | B | `parse_query(text) -> Query` | text → item | synonyms table in `voice/intent.py` |
 | B | `describe_location(sighting) -> str` | one image + one box → short zh-TW sentence | one VLM call per question; only the crop/annotated image is sent (review H4) |
 | B | `speak(text, out_path) -> Path` | text → audio file | zh-TW voice; rate slower than default |
-| C | `enhance(image, preset) -> image` | BGR `uint8` HxWx3 → BGR `uint8` (display size) | pure function, no I/O; deterministic for a given input and preset |
+| C | `enhance(image, preset) -> image` | BGR `uint8` HxWx3 (H, W >= 8) → BGR `uint8` of the input shape; `preset` is a `Preset` or a name | pure function, no I/O; deterministic for a given input and preset; bad image `ValueError`, unknown name `KeyError` |
 | D | `app.main` | wires the above; Mode 1 → Mode 2 handoff passes `sighting` crop + the user's preset | |
 
 ## Evaluation contracts
