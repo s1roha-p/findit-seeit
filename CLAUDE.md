@@ -108,7 +108,11 @@ user-written text are marked `Decision: USER`.
     guard knows - push, pull, merge, rebase, reset --hard, clean, stash, checkout/switch/restore, ref deletion, `git
     config` writes, one-off `-c` values, `-C`/`--git-dir`, writes into `.git/` or `.gitmodules`, commits - **asks the
     user**; do not try to phrase around a confirmation. Commit only when the user asked for it; commit messages carry
-    no attribution lines.
+    no attribution lines. **Plan commits before making them:** one commit per logical change (code, its tests, docs,
+    coordination records), ordered so each commit still imports and passes its tests; show the plan (commit, files,
+    message) before running it. Split only where it pays: each extra commit costs one more user confirmation (R6) and
+    tool call, and buys a separate review and revert. Merge parts when a file holds several changes (no interactive
+    staging here), when a part is too small to review alone, or when the parts only make sense together.
 12. Harness/role documents may be edited for an authorized task. The guard asks the user to confirm each Write / Edit
     of `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` and `CLAUDE.local.md` (any depth). `AGENT_ADVISOR.md`, `.mcp.json` and the
     `.claude/`, `.agents/`, `.codex/`, `.gemini/` folders stay denied unless the user launches with
