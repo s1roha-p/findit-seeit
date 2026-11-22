@@ -28,9 +28,9 @@ Status: OPEN · DOING · DONE · DROPPED (with the reason).
 | B-05 | Intent synonyms table and unknown-item answer | H2 | B | OPEN |
 | B-06 | VLM location prompt (one call per question, zh-TW, short); privacy rule written on the slide | H2, H4 | B | OPEN |
 | B-07 | Latency budget measured end to end (median, p90, stage shares) | H4 | B, D | OPEN |
-| B-08 | Mode 2 pipeline in the reviewed order; `enhance(image, preset)` with `cataract` and `amd` presets | H5 | C | OPEN |
+| B-08 | Mode 2 pipeline in the reviewed order; `enhance(image, preset)` with `cataract` and `amd` presets | H5 | C | DOING - implemented on branch `part-c/dual-orch-test` (uncommitted); contract tests 182/182 pass, E0, conda `findsee`, Windows 10 (`work/claude-main/C-20261122T1606Z-claude-0984/evidence/`); preset values are drafts, untuned (needs B-09, B-11) |
 | B-09 | Denoiser comparison on small characters (median / bilateral / NLM) by CER | H5 | C | OPEN |
-| B-10 | Live Mode 2 on a camera stream; fps at 720p | M2 | C | OPEN |
+| B-10 | Live Mode 2 on a camera stream; fps at 720p | M2 | C | DOING - `mode2/live.py` + `make_custom` sliders written and unit-tested with fakes; E0 synthetic 1280x720 CPU benchmark: cataract ~82 fps (median 12.3 ms), amd ~61 fps (median 16.4 ms), 60 frames, 8 threads, this laptop; NOT a camera measurement - `run_live` on the demo camera still to do |
 | B-11 | Simulation filters (cataract, AMD) with versioned parameters; OCR runner; record writer | M1 | D | OPEN |
 | B-12 | Data collection with consent and redaction; manifests; session split written once | M1, M5 | D | OPEN |
 | B-13 | App shell with both modes and the "放大看" handoff | M3 | D | OPEN |

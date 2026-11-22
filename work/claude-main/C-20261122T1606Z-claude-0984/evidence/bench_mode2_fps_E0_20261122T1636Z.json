@@ -1,0 +1,56 @@
+{
+  "backlog_id": "B-10",
+  "tier": "E0",
+  "record_id": null,
+  "record_id_reason": "no record writer yet (Part D eval/records.py)",
+  "synthetic": true,
+  "frame_shape": [
+    720,
+    1280,
+    3
+  ],
+  "frames": 60,
+  "warmup": 5,
+  "platform": "Windows-10-10.0.19045-SP0",
+  "machine": "AMD64",
+  "cpu_count": 8,
+  "python_version": "3.11.18",
+  "numpy_version": "2.4.6",
+  "cv2_version": "5.1.0",
+  "cv2_num_threads": 8,
+  "results": {
+    "amd": {
+      "preset": "amd",
+      "preset_config": {
+        "name": "amd",
+        "zoom": 3.0,
+        "denoise": "median",
+        "clahe_clip": 2.0,
+        "clahe_tile": 8,
+        "sharpen_amount": 1.5,
+        "display": "binary_dark",
+        "blue_gain": 1.0
+      },
+      "median_ms": 16.448299999865412,
+      "p90_ms": 17.921259999911854,
+      "fps": 60.79655648353827
+    },
+    "cataract": {
+      "preset": "cataract",
+      "preset_config": {
+        "name": "cataract",
+        "zoom": 2.0,
+        "denoise": "bilateral",
+        "clahe_clip": 3.0,
+        "clahe_tile": 8,
+        "sharpen_amount": 1.0,
+        "display": "color_precomp",
+        "blue_gain": 1.3
+      },
+      "median_ms": 12.263650000022608,
+      "p90_ms": 12.69395000035729,
+      "fps": 81.5417922069006
+    }
+  },
+  "limitations": "E0 synthetic CPU microbenchmark only (no camera, no disk record writer); E2 protocol requires 300 frames after 30 warmup on the demo machine with eval/records.py."
+}
