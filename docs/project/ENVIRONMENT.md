@@ -1,8 +1,10 @@
 # Environment
 
-**Status: a proposal (2026-11-20).** Nothing here has been installed or verified. When a member sets up a machine,
-record what was actually installed in the machine table below; package changes are the user's (the guard denies
-`pip` / `conda` / `uv` package changes from an agent session, `CLAUDE.md` rule 5.5).
+**Status: partially verified (2026-11-26; Part C core packages pinned in `requirements.txt`).** Core packages
+`numpy==2.4.6`, `opencv-python==5.1.0.95` (`cv2` 5.1.0), and `pytest==9.2.0` are installed and verified in conda
+`findsee` on the Windows 10 laptop below. `pillow` and all Part A / B / D packages remain unverified proposals.
+When a member sets up a machine, record what was actually installed in the machine table below; package changes are
+the user's (the guard denies `pip` / `conda` / `uv` package changes from an agent session, `CLAUDE.md` rule 5.5).
 
 ## Project environment (critical instruction 3)
 
@@ -13,8 +15,8 @@ Either form satisfies the guard:
 - a virtual environment **inside the project folder**, `.venv/` (activate it, or run `.venv/bin/python ...` /
   `.venv\Scripts\python ...` on Windows, or `uv run ...`).
 
-Proposed Python: **3.11** (a version with wheels for every package below on Windows, macOS and Linux; confirm when
-installing).
+Python: **3.11** proposed; **3.11.18** verified in conda `findsee` on Windows 10 for Part C packages (wheels exist on
+Windows, macOS, and Linux; confirm remaining Part A / B / D wheels when installing).
 
 ## Proposed packages (by part)
 
@@ -69,4 +71,5 @@ on first use is fine once the user has approved that model.
 
 | Member / part | OS | CPU | GPU (VRAM) | Env form | Python | Verified on |
 |---|---|---|---|---|---|---|
-| *TBD* | | | | | | |
+| *TBD* / C (dev laptop; D7 open) | Windows 10 Home 10.0.19045 (AMD64), 16 GB RAM | Intel Core i7-11370H @ 3.30 GHz (4C / 8T) | Intel Iris Xe Graphics (active); NVIDIA GeForce RTX 3060 Laptop GPU (present, PnP status Unknown / `nvidia-smi` permission denied, VRAM unverified; CPU-only runs so far) | conda `findsee` (`requirements.txt`: `numpy==2.4.6`, `opencv-python==5.1.0.95`, `pytest==9.2.0`; `pillow` not yet installed) | 3.11.18 | 2026-11-26 (182/182 `tests/mode2` pass; E0 synthetic 720p CPU bench 2026-11-22) |
+| *Other members TBD* | | | | | | |

@@ -1,0 +1,24 @@
+# FindSee Python requirements (recorded 2026-11-26 from conda env `findsee`).
+#
+# Provenance:
+# - Recorded on Windows 10 Home (10.0.19045, AMD64), Python 3.11.18, conda env `findsee`.
+# - Scope: Part C (Mode 2 low-vision enhancement and live camera helpers) plus pytest.
+# - Trimmed from `python -m pip freeze` to direct top-level dependencies per `docs/project/ENVIRONMENT.md`
+#   so cross-platform rebuilds do not pin OS-specific transitive packages (on Windows, pip freeze also
+#   recorded colorama==0.4.6, iniconfig==2.3.1, packaging==26.3, pluggy==1.7.0, Pygments==2.21.0).
+# - Not yet installed / omitted: `pillow` and Part A / B / D packages (ultralytics, torch, torchvision,
+#   ASR, VLM, TTS, gradio / streamlit, OCR); add their pins here as those parts are provisioned.
+#
+# Rebuild commands (user-run, from repo root):
+#   conda create -n findsee python=3.11.18
+#   conda activate findsee
+#   pip install -r requirements.txt
+
+# N-dimensional uint8 and float image array operations used by `findsee.mode2` and `tests/mode2`.
+numpy==2.4.6
+
+# OpenCV (`cv2` 5.1.0) for crop/resize, Lab CLAHE, median/bilateral/NLM denoise, adaptive threshold, and camera I/O.
+opencv-python==5.1.0.95
+
+# Unit and contract test runner for `tests/`.
+pytest==9.2.0

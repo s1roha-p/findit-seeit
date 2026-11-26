@@ -57,6 +57,21 @@ Invalid values raise `ValueError` in `__post_init__`. Equality and hashing are t
     channels 1 and 2 are **identical** to the `plain` result. Hence, for the same input and a preset that differs
     only in `display`, `out_precomp[..., 0] >= out_plain[..., 0]` elementwise.
 
+### Unspecified (do not assert) (backfilled 2026-11-26 from Gemini 1384 hand-back)
+
+- `Preset` positional constructor order and validation details at the stated domain boundaries: whitespace-only
+  names, extra finiteness checks for values meeting the bounds, and handling of `bool` and NumPy scalars.
+- Exception type for an `enhance` `preset` outside `Preset`/`str` or a `get_preset` argument outside `str`,
+  error precedence when multiple inputs are invalid, and exact validation and lookup error wording.
+- Future tuned `PRESETS` values. The values above are the starting drafts for this round.
+- Discrete crop-size rounding and minimum crop size at high zoom, and which side gets the extra pixel when a
+  centered crop leaves an odd margin.
+- Denoiser kernel sizes and filter parameters, CLAHE's effective grid adjustment when a crop is smaller than
+  the requested grid, and the unsharp-mask blur parameters.
+- `binary_dark` adaptive-threshold weighting, `blockSize`, `C`, and adjustment on small canvases.
+- `color_precomp` intermediate precision and rounding tie-break.
+- Whether `enhance` emits DEBUG records, their count, and their wording.
+
 ## 2. Lanes and write sets (disjoint)
 
 | Lane | Orchestrator / session | Writes only | Runners |
@@ -107,6 +122,24 @@ New `src/findsee/mode2/live.py`:
 - `run_live(camera_index=0, preset="cataract", width=1280, height=720) -> None`: interactive loop (camera + window);
   keys `q`/Esc quit, `1` cataract, `2` amd, `0` raw frame; overlays preset name and fps with `draw_status`; never
   writes frames to disk; logs requested and effective size at INFO. Not unit-tested (needs a camera and a display).
+
+### Unspecified (do not assert) (backfilled 2026-11-26 from Gemini 1777 hand-back)
+
+- `make_custom`: exception type for a `base` outside `Preset`/`str`, and the inherited `Preset` edge-input
+  policies above for whitespace-only names and numeric values.
+- `FpsMeter`: type checks and exception type for non-integer `window` inputs beyond the `< 2` rule, which check
+  rejects a boolean, handling of an incompatible clock, and internal tick storage.
+- `draw_status`: exact box geometry, padding and clipping, and glyph placement, font, scale, thickness,
+  antialiasing and foreground color. The pixel effect of space-only text and diagnostic precedence when both
+  arguments are invalid are also open.
+- `open_camera`: order of `isOpened()` and `set()` calls, relative width/height property order, handling of
+  negative indices and non-positive dimensions, and conversion of fractional `get()` results to ints.
+- Exact exception wording, with the camera-open error still required to name the requested index.
+- `run_live`: window title and key polling mechanics, status format (including the raw label and FPS precision
+  and placeholder), and how labels are made printable ASCII. Support for a `Preset` object and validation of
+  unsupported starting presets are also open.
+- `run_live`: exact log wording and additional log events, read-failure and window-close handling, and cleanup
+  mechanics.
 
 ### Lanes, round 2
 

@@ -17,3 +17,7 @@ Newest entries at the end. Each entry: `## <UTC> - <title> (<Agent> MAIN, part <
   camera run). Method: `docs/project/ORCHESTRATION_METHOD.md` "Parallel orchestrators".
 - (gemini) C2 wrote the contract tests and `eval/bench_mode2_fps.py` blind to the C1 code (two sessions, 1384 and
   1777, `gemini-4-neon` runners); they passed on first run against C1.
+
+## 2026-11-26T05:45Z - Part C env recorded; LANES gaps closed (Gemini MAIN lead + Codex MAIN, part C)
+- (gemini) Added `requirements.txt` (`numpy==2.4.6`, `opencv-python==5.1.0.95`, `pytest==9.2.0`; `pillow` absent) & laptop row in `docs/project/ENVIRONMENT.md`; 182/182 `tests/mode2` pass, E0, conda `findsee` (`change_log/2026-11-26_05-30_part-c-env-and-lanes-gaps.md`).
+- (codex) Added `Unspecified (do not assert)` lists to `LANES.md` §1 & §2R using two `gpt-6.2-sol` medium runners (`work/codex-main/C-20261126T0530Z-codex-7c2d/HANDBACK.md`).
